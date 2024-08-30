@@ -1,16 +1,24 @@
 on: 
-    workflow_dispatch:
-
+  workflow_dispatch: 
+   
 jobs: 
-    hello_world_job: 
-        runs-on: ubuntu-latest 
-        name: A job to say hello 
-        steps: 
-          - name: Hello world action step 
-            id: hello 
-            uses: ./hello-world-docker-action 
-            with: 
-              who-to-greet: <WPISZ_SWOJE_IMIĘ> #⬅  Uwaga 
+  hello_world_job: 
+    runs-on: ubuntu-latest 
+    name: A job to say hello 
+    steps: 
+      - name: Checkout 
+        uses: actions/checkout@v4 
+      - name: Hello world action step 
+        id: hello 
+        uses: ./hello-world-docker-action 
+        with: 
+          who-to-greet: 'Mona the Octocat' 
 
-          - name: Get the output time 
-            run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - name: Get the output time 
+        run: echo "The time was ${{ steps.hello.outputs.time }}" 
+
+      - name: Upload Build Artifacts 
+        uses: actions/upload-artifact@v4 
+        with: 
+          name: workspace_artifacts 
+          path: ${{ github.workspace }} #⬅  Ten katalog jest mapowany pod obraz Docker
