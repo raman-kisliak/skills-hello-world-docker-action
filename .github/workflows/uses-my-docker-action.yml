@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4 
       - name: Hello world action step 
         id: hello 
-        uses: ./hello-world-docker-action 
+        uses: ./ 
         with: 
           who-to-greet: 'Mona the Octocat' 
 
